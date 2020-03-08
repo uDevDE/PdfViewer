@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <Identity
+    Name="f56e7326-8af2-44ed-ae8f-561b496b152c"
+    Publisher="CN=Mike.Undorf"
+    Version="1.0.9.0" />
+
+  <mp:PhoneIdentity PhoneProductId="f56e7326-8af2-44ed-ae8f-561b496b152c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>PdfViewer</DisplayName>
+    <PublisherDisplayName>Mike.Undorf</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="PdfViewer.App">
+      <uap:VisualElements
+        DisplayName="PdfViewer"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="PdfViewer"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="black"/>
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="nrpdf">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.pdf</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DisplayName>NR Pdf Viewer</uap:DisplayName>
+            <uap:Logo>Assets\nr-logo-874x590.png</uap:Logo>
+            <uap:InfoTip>Öffnet das Dokument im NR-PdfViewer</uap:InfoTip>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Extensions>
+    <Extension Category="windows.certificates">
+      <Certificates>
+        <Certificate Content="AppPackages\PdfViewer_1.0.1.0_Test\PdfViewer_1.0.1.0_x86_x64_arm.cer" StoreName="addressBook"/>
+      </Certificates>
+    </Extension>
+  </Extensions>
+</Package>

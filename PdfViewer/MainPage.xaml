@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="PdfViewer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:local="using:PdfViewer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <NavigationView x:Name="Navigator" IsSettingsVisible="False"
+                                IsBackButtonVisible="Auto" IsBackEnabled="False"
+                                PaneTitle="PDF Viewer" PaneDisplayMode="Left" 
+                                ExpandedModeThresholdWidth="600" SelectionFollowsFocus="Disabled"
+                                IsTabStop="False" SelectionChanged="Navigator_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItemHeader Content="Menü"/>
+                <NavigationViewItem Content="Pdf-Datei öffnen" Tag="PdfViewerPageContent" x:Name="OpenPdfFile">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="OpenFile" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItemHeader Content="Favoriten"/>
+                <NavigationViewItem Content="Favoritenliste anzeigen" Tag="FavoriteDialog">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Favorite"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItemHeader Content="Zuletzt verwendet"/>
+                <NavigationViewItem Content="Zuletzt verwendete Dateien anzeigen" Tag="LastTimeUsedDialog">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Clock"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <!--<NavigationView.AutoSuggestBox>
+                <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search" />
+            </NavigationView.AutoSuggestBox>-->
+
+            <Frame x:Name="ContentFrame"/>
+        </NavigationView>
+    </Grid>
+</Page>

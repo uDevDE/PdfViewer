@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="PdfViewer.View.Pages.PdfViewerSource"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctl="using:PdfViewer.View.Controls"
+    xmlns:local="using:PdfViewer.View.Pages"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ct="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Name="PdfPageTemplate" x:DataType="ctl:PdfViewerPageControl">
+            <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3">
+                <ctl:PdfViewerPageControl/>
+            </VariableSizedWrapGrid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <StackPanel Margin="8" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <AppBarButton Icon="Up" Label="Erste Seite" x:Name="ButtonScrollToFirst" Margin="10" Click="ButtonScrollToFirst_Click"/>
+                    <AppBarButton Icon="Redo" Label="Letzte Seite" x:Name="ButtonScrollToLast" Margin="10" Click="ButtonScrollToLast_Click"/>
+                    <AppBarSeparator VerticalAlignment="Center"/>
+                    <AppBarButton Icon="Back" Label="Zurück" x:Name="ButtonGoBack" Margin="10" Click="ButtonGoBack_Click"/>
+                    <AppBarButton Icon="Forward" Label="Vor" x:Name="ButtonGoNext" Margin="10" Click="ButtonGoNext_Click"/>
+                    <AppBarSeparator VerticalAlignment="Center"/>
+                    <AppBarButton Icon="ZoomIn" Label="Zoom in" x:Name="ButtonZoomIn" Margin="10" Click="ButtonZoomIn_Click"/>
+                    <AppBarButton Icon="ZoomOut" Label="Zoom out" x:Name="ButtonZoomOut" Margin="10" Click="ButtonZoomOut_Click"/>
+                    <AppBarSeparator VerticalAlignment="Center"/>
+                    <AppBarButton Icon="Rotate" Label="Links" x:Name="ButtonRotateLeft" Margin="10" Click="ButtonRotateLeft_Click"/>
+                    <AppBarButton Icon="Rotate" Label="Rechts" x:Name="ButtonRotateRight" Margin="10" Click="ButtonRotateRight_Click"/>
+                    <AppBarSeparator VerticalAlignment="Center"/>
+                    <AppBarToggleButton Icon="Favorite" Label="Favorisiert" Margin="10" IsChecked="{x:Bind PdfFile.IsFavorite, Mode=OneWay}"
+                                    x:Name="ButtonFavorite" Checked="ButtonFavorite_Checked" Unchecked="ButtonFavorite_Unchecked"
+                                    />
+
+                </StackPanel>
+
+                <controls:NumberBox x:Name="NumberBoxPageNumber" Header="Gehe zu Seite:" Value="1" 
+                                SpinButtonPlacementMode="Inline"  SmallChange="1" LargeChange="10" 
+                                HorizontalAlignment="Right" VerticalAlignment="Center"
+                                Margin="0 0 150 0" Maximum="1" Minimum="1" ValueChanged="NumberBoxPageNumber_ValueChanged"/>
+
+                <Button Content="&#xEF2C;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="0 0 20 0"
+                    Width="42" Height="42" Background="Red" x:Name="ButtonClose" Click="ButtonClose_Click"/>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" ZoomMode="Enabled" MaxZoomFactor="4" MinZoomFactor="0.1"
+                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                      x:Name="PdfViewScrollViewer" ViewChanged="PdfViewScrollViewer_ViewChanged">
+                <ItemsControl ItemsSource="{x:Bind ViewerPageViewModel.Pages}" x:Name="PdfViewerItemsControl"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                </ItemsControl>
+            </ScrollViewer>
+
+        </Grid>
+        <ct:Loading x:Name="LoadingControl">
+            <ct:Loading.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7" />
+            </ct:Loading.Background>
+            <ProgressRing IsActive="True" Width="60" Height="60" Margin="0 30 0 0" Foreground="Red"/>
+        </ct:Loading>
+    </Grid>
+</Page>
